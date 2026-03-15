@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>if(new URLSearchParams(location.search).get("theme")==="dark")document.documentElement.classList.add("dark")</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -137,11 +138,22 @@ body {
 
 @media (prefers-color-scheme: dark) {
   body { background: #101013; }
+
+
   .root-box { background: #fff; }
   .root-box::before { border-color: #C0C0C0; }
   .mid-box { background: #fff; }
   .leaf-box { background: #fff; }
 }
+
+  html.dark body { background: #101013; }
+
+
+  html.dark .root-box { background: #fff; }
+  html.dark .root-box::before { border-color: #C0C0C0; }
+  html.dark .mid-box { background: #fff; }
+  html.dark .leaf-box { background: #fff; }
+
 
 /* Mobile */
 @media (max-width: 640px) {

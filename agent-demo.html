@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>if(new URLSearchParams(location.search).get("theme")==="dark")document.documentElement.classList.add("dark")</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -49,7 +50,12 @@ body { background: transparent; font-family: 'Geist', 'SF Pro', -apple-system, '
 
 @media (prefers-color-scheme: dark) {
   body { background: #101013; }
+
+
 }
+
+  html.dark body { background: #101013; }
+
 </style>
 </head>
 <body>

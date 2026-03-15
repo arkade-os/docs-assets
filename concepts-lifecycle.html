@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>if(new URLSearchParams(location.search).get("theme")==="dark")document.documentElement.classList.add("dark")</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -126,10 +127,20 @@ body {
 
 @media (prefers-color-scheme: dark) {
   body { background: #101013; }
+
+
   .state.s-active { background: #fff; }
   .state.s-renewal { background: #fff; }
   .state.s-expired { background: #fff; }
 }
+
+  html.dark body { background: #101013; }
+
+
+  html.dark .state.s-active { background: #fff; }
+  html.dark .state.s-renewal { background: #fff; }
+  html.dark .state.s-expired { background: #fff; }
+
 
 @media (max-width: 640px) {
   .diagram { height: 360px; }

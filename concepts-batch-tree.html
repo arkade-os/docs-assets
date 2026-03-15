@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>if(new URLSearchParams(location.search).get("theme")==="dark")document.documentElement.classList.add("dark")</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -121,9 +122,18 @@ body {
 
 @media (prefers-color-scheme: dark) {
   body { background: #101013; }
+
+
   .batch-box { background: #fff; }
   .vtxo { background: #fff; }
 }
+
+  html.dark body { background: #101013; }
+
+
+  html.dark .batch-box { background: #fff; }
+  html.dark .vtxo { background: #fff; }
+
 
 @media (max-width: 640px) {
   .diagram {
