@@ -108,8 +108,8 @@ var groups=[
     lines:[
       [{t:"// Send an instant payment",c:C}],
       [{t:"await ",c:K},{t:"wallet.send",c:I},{t:"({",c:P}],
-      [{t:"  ",c:P},{t:"address: ",c:I},{t:"'ark1q...'",c:S},{t:",",c:P}],
-      [{t:"  ",c:P},{t:"amount: ",c:I},{t:"50_000",c:N},{t:"  // amount in sats",c:C}],
+      [{t:"  address: ",c:I},{t:'"ark1q..."',c:S},{t:",",c:I}],
+      [{t:"  amount: ",c:I},{t:"50_000",c:N}],
       [{t:"})",c:P}],
     ],
     result:{text:"50,000 sats sent",detail:"instant offchain settlement"},
@@ -117,11 +117,13 @@ var groups=[
   {
     lines:[
       [{t:"// Pay a Lightning invoice",c:C}],
-      [{t:"const ",c:K},{t:"lightning ",c:I},{t:"= ",c:P},{t:"new ",c:K},{t:"ArkadeSwaps",c:PL},{t:"({",c:P}],
+      [{t:"const ",c:K},{t:"swaps ",c:I},{t:"= ",c:P},{t:"new ",c:K},{t:"ArkadeSwaps",c:PL},{t:"({",c:P}],
       [{t:"  wallet,",c:I}],
       [{t:"  swapProvider: ",c:I},{t:"new ",c:K},{t:"BoltzSwapProvider",c:PL},{t:"()",c:P}],
       [{t:"})",c:P}],
-      [{t:"await ",c:K},{t:"lightning.sendLightningPayment",c:I},{t:"(",c:P},{t:"'lnbc500u1pj...'",c:S},{t:")",c:P}],
+      [{t:"await ",c:K},{t:"swaps.sendLightningPayment",c:I},{t:"({",c:P}],
+      [{t:"  invoice: ",c:I},{t:'"lnbc500u1pj..."',c:S}],
+      [{t:"})",c:P}],
     ],
     result:{text:"Lightning payment sent",detail:"via submarine swap"},
   },
