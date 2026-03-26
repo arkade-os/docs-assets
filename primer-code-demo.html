@@ -62,7 +62,7 @@ body { background: transparent; font-family: 'Geist', 'SF Pro', -apple-system, '
       <path d="M384 256L256 384H384V256Z" fill="#F6F6F6"/>
     </svg>
     <div class="sep"></div>
-    <span class="header-text">getting started</span>
+    <span class="header-text">npm install @arkade-os/sdk</span>
     <button class="copy-btn" id="copyBtn">Copy</button>
   </div>
   <div class="code-body" id="codeBody"></div>
@@ -72,12 +72,15 @@ body { background: transparent; font-family: 'Geist', 'SF Pro', -apple-system, '
 var K="#E8664A",S="#2E7D32",C="#9E9EB0",N="#7B1FA2",I="#1A1A2E",P="#6B6B80",PL="#4A22B0";
 
 var introLines=[
-  [{t:"import ",c:K},{t:"{ MnemonicIdentity, Wallet }",c:I},{t:" from ",c:K},{t:"'@arkade-os/sdk'",c:S}],
+  [{t:"import ",c:K},{t:"{ Wallet, MnemonicIdentity }",c:I},{t:" from ",c:K},{t:"'@arkade-os/sdk'",c:S}],
+  [{t:"import ",c:K},{t:"{ ArkadeSwaps, BoltzSwapProvider }",c:I},{t:" from ",c:K},{t:"'@arkade-os/boltz-swap'",c:S}],
   null,
-  [{t:"// 1. Connect to an Arkade operator",c:C}],
+  [{t:"const ",c:K},{t:"identity ",c:I},{t:"= ",c:P},{t:"MnemonicIdentity",c:PL},{t:".fromMnemonic",c:I},{t:"(mnemonic)",c:P}],
+  null,
+  [{t:"// 1. Connect to the Arkade operator",c:C}],
   [{t:"const ",c:K},{t:"wallet ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"Wallet.create",c:I},{t:"({",c:P}],
-  [{t:"  identity: ",c:I},{t:"MnemonicIdentity",c:PL},{t:".fromMnemonic(",c:P},{t:"\"abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about\"",c:S},{t:")",c:P},{t:",",c:P}],
-  [{t:"  arkServerUrl: ",c:I},{t:"'https://arkade.computer'",c:S},{t:",",c:P}],
+  [{t:"  identity,",c:I}],
+  [{t:"  arkServerUrl: ",c:I},{t:"'https://arkade.computer'",c:S}],
   [{t:"})",c:P}],
 ];
 
@@ -85,10 +88,10 @@ var groups=[
   {
     lines:[
       [{t:"// 2. Transact \u2014 instant, near-zero fees",c:C}],
-      [{t:"const ",c:K},{t:"txid ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"wallet.sendBitcoin",c:I},{t:"(",c:P}],
-      [{t:"  ",c:P},{t:"'ark1q...recipient'",c:S},{t:",",c:P}],
-      [{t:"  ",c:P},{t:"50_000",c:N}],
-      [{t:")",c:P}],
+      [{t:"const ",c:K},{t:"txid ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"wallet.send",c:I},{t:"({",c:P}],
+      [{t:"  ",c:P},{t:"address: ",c:I},{t:"'ark1q...'",c:S},{t:",",c:P}],
+      [{t:"  ",c:P},{t:"amount: ",c:I},{t:"50_000",c:N}],
+      [{t:"})",c:P}],
     ],
     result:{text:"Payment sent",detail:"instant preconfirmation"},
   },
@@ -102,9 +105,9 @@ var groups=[
   {
     lines:[
       [{t:"// 4. Exit \u2014 withdraw to Bitcoin L1",c:C}],
-      [{t:"const ",c:K},{t:"address ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"wallet.getAddress",c:I},{t:"()",c:P}],
+      [{t:"const ",c:K},{t:"txid ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"wallet.offboard",c:I},{t:"(destinationAddress)",c:P}],
     ],
-    result:{text:"Address ready",detail:"unilateral exit available"},
+    result:{text:"Withdrawal completed",detail:"funds paid out to mainnet address"},
   },
 ];
 
