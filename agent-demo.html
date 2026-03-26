@@ -89,7 +89,7 @@ var introLines=[
   [{t:"import ",c:K},{t:"{ Wallet, MnemonicIdentity }",c:I},{t:" from ",c:K},{t:"'@arkade-os/sdk'",c:S}],
   [{t:"import ",c:K},{t:"{ ArkadeSwaps, BoltzSwapProvider }",c:I},{t:" from ",c:K},{t:"'@arkade-os/boltz-swap'",c:S}],
   null,
-  [{t:"const ",c:K},{t:"identity ",c:I},{t:"= ",c:P},{t:"MnemonicIdentity",c:PL},{t:".fromMnemonic",c:I},{t:"(mnemonic)",c:P}],
+  [{t:"const ",c:K},{t:"identity ",c:I},{t:"= ",c:P},{t:"MnemonicIdentity",c:PL},{t:".fromMnemonic",c:I},{t:"(",c:P},{t:"mnemonic",c:I},{t:")",c:P}],
   null,
   [{t:"const ",c:K},{t:"wallet ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"Wallet.create",c:I},{t:"({",c:P}],
   [{t:"  identity,",c:I}],
@@ -100,15 +100,9 @@ var introLines=[
 var groups=[
   {
     lines:[
-      [{t:"const ",c:K},{t:"balance ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"wallet.getBalance",c:I},{t:"()",c:P}],
-    ],
-    result:{text:"Balance loaded",detail:"250,000 sats available"},
-  },
-  {
-    lines:[
       [{t:"// Send an instant payment",c:C}],
       [{t:"await ",c:K},{t:"wallet.send",c:I},{t:"({",c:P}],
-      [{t:"  address: ",c:I},{t:'"ark1q..."',c:S},{t:",",c:I}],
+      [{t:"  ",c:P},{t:"address: ",c:I},{t:'"ark1q..."',c:S},{t:",",c:P}],
       [{t:"  amount: ",c:I},{t:"50_000",c:N}],
       [{t:"})",c:P}],
     ],
