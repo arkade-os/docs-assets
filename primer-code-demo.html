@@ -75,16 +75,19 @@ var introLines=[
   [{t:"import ",c:K},{t:"{ Wallet, MnemonicIdentity }",c:I},{t:" from ",c:K},{t:"'@arkade-os/sdk'",c:S}],
   [{t:"import ",c:K},{t:"{ ArkadeSwaps, BoltzSwapProvider }",c:I},{t:" from ",c:K},{t:"'@arkade-os/boltz-swap'",c:S}],
   null,
-  [{t:"const ",c:K},{t:"identity ",c:I},{t:"= ",c:P},{t:"MnemonicIdentity",c:PL},{t:".fromMnemonic",c:I},{t:"(mnemonic)",c:P}],
-  null,
-  [{t:"// 1. Connect to the Arkade operator",c:C}],
-  [{t:"const ",c:K},{t:"wallet ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"Wallet.create",c:I},{t:"({",c:P}],
-  [{t:"  identity,",c:I}],
-  [{t:"  arkServerUrl: ",c:I},{t:"'https://arkade.computer'",c:S}],
-  [{t:"})",c:P}],
+  [{t:"const ",c:K},{t:"identity ",c:I},{t:"= ",c:P},{t:"MnemonicIdentity",c:PL},{t:".fromMnemonic(",c:I},{t:"mnemonic",c:I},{t:")",c:P}],
 ];
 
 var groups=[
+  {
+    lines: [
+      [{t:"// 1. Connect to the Arkade operator",c:C}],
+      [{t:"const ",c:K},{t:"wallet ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"Wallet.create",c:I},{t:"({",c:P}],
+      [{t:"  identity,",c:I}],
+      [{t:"  arkServerUrl: ",c:I},{t:"'https://arkade.computer'",c:S}],
+      [{t:"})",c:P}],
+    ]
+  },
   {
     lines:[
       [{t:"// 2. Transact \u2014 instant, near-zero fees",c:C}],
@@ -97,17 +100,19 @@ var groups=[
   },
   {
     lines:[
-      [{t:"// 3. Check what needs anchoring",c:C}],
+      [{t:"// 3. Settle preconfirmed VTXOs",c:C}],
       [{t:"const ",c:K},{t:"vtxos ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"wallet.getVtxos",c:I},{t:"()",c:P}],
+      [{t:"const ",c:K},{t:"vtxosToSettle ",c:I},{t:"= ",c:P},{t:"vtxos",c:I},{t:".filter",c:I},{t:"(vtxo => ",c:I},{t:"vtxo.virtualStatus.state ",c:I},{t:"=== ",c:P},{t:'"preconfirmed"',c:S},{t:")",c:P}],
+      [{t:"await ",c:K},{t:"wallet.settle",c:I},{t:"({ inputs:",c:I},{t:" [",c:P},{t:"vtxosToSettle",c:I},{t:"] })",c:P}],
     ],
-    result:{text:"3 VTXOs loaded",detail:"1 preconfirmed, 2 settled"},
+    result:{text:"1 VTXO settled",detail:"anchored to bitcoin"},
   },
   {
     lines:[
       [{t:"// 4. Exit \u2014 withdraw to Bitcoin L1",c:C}],
-      [{t:"const ",c:K},{t:"txid ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"wallet.offboard",c:I},{t:"(destinationAddress)",c:P}],
+      [{t:"const ",c:K},{t:"txid ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"wallet.offboard",c:I},{t:"(",c:P},{t:"destinationAddress",c:I},{t:")",c:P}],
     ],
-    result:{text:"Withdrawal completed",detail:"funds paid out to mainnet address"},
+    result:{text:"Withdrawal completed",detail:"funds swept to mainnet address"},
   },
 ];
 
