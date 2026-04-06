@@ -73,10 +73,10 @@ var K="#E8664A",S="#2E7D32",C="#9E9EB0",N="#7B1FA2",I="#1A1A2E",P="#6B6B80",PL="
 
 var introLines=[
   [{t:"// Alice sends 1,000 sats to Bob",c:C}],
-  [{t:"const ",c:K},{t:"tx ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"wallet.sendBitcoin",c:I},{t:"(",c:P}],
-  [{t:"  ",c:P},{t:"'ark1q...bob'",c:S},{t:",",c:P}],
-  [{t:"  ",c:P},{t:"1_000n",c:N}],
-  [{t:")",c:P}],
+  [{t:"const ",c:K},{t:"tx ",c:I},{t:"= ",c:P},{t:"await ",c:K},{t:"wallet.send",c:I},{t:"({",c:P}],
+  [{t:"  address: ",c:I},{t:"'ark1q...'",c:S},{t:",",c:P}],
+  [{t:"  amount: ",c:I},{t:"1_000",c:N}],
+  [{t:"})",c:P}],
 ];
 
 var groups=[
@@ -97,7 +97,7 @@ var groups=[
   {
     lines:[
       [{t:"// Chain another transaction",c:C}],
-      [{t:"await ",c:K},{t:"wallet.sendBitcoin",c:I},{t:"(",c:P},{t:"'ark1q...carol'",c:S},{t:", ",c:P},{t:"500n",c:N},{t:")",c:P}],
+      [{t:"await ",c:K},{t:"wallet.send",c:I},{t:"({ ",c:P},{t:"address: ",c:I},{t:"'ark1q...'",c:S},{t:", ",c:P},{t:"amount: ",c:I},{t:"500",c:N},{t:" })",c:P}],
     ],
     result:{text:"Payment sent",detail:"no block wait needed"},
   },
