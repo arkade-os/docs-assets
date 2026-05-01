@@ -1,325 +1,458 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<script>if(new URLSearchParams(location.search).get("theme")==="dark")document.documentElement.classList.add("dark")</script>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-@font-face {
-  font-family: 'Geist';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFWNOITd.woff2) format('woff2');
-}
+  <script>if (new URLSearchParams(location.search).get("theme") === "dark") document.documentElement.classList.add("dark")</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    @font-face {
+      font-family: 'Geist';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFWNOITd.woff2) format('woff2');
+    }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: transparent;
-  font-family: 'Geist', -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-.diagram {
-  position: relative;
-  height: 240px;
-  padding: 0;
-}
+    body {
+      background: transparent;
+      font-family: 'Geist', -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
 
-.svg-lines {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-}
-.svg-lines line {
-  stroke: #FF5327;
-  stroke-width: 1.5;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-.svg-lines line.show { opacity: 1; }
+    .diagram {
+      position: relative;
+      height: 240px;
+      padding: 0;
+    }
 
-/* State boxes */
-.state {
-  position: absolute;
-  padding: 10px 18px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-.state.show { opacity: 1; }
+    .svg-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
 
-.state.s-created {
-  background: #FF5327;
-  color: #fff;
-}
-.state.s-active {
-  background: #fff;
-  border: 1.5px solid #FF5327;
-  color: #FF5327;
-}
-.state.s-renewal {
-  background: #fff;
-  border: 1.5px dashed #C0C0C0;
-  color: #1A1A1A;
-}
-.state.s-expired {
-  background: #fff;
-  border: 1.5px dashed #C0C0C0;
-  color: #999;
-}
+    .svg-lines line {
+      stroke: #FF5327;
+      stroke-width: 1.5;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
 
-/* Description labels */
-.desc {
-  position: absolute;
-  font-size: 10px;
-  color: #777;
-  line-height: 1.4;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-.desc.show { opacity: 1; }
+    .svg-lines line.show {
+      opacity: 1;
+    }
 
-/* Loop label */
-.loop-label {
-  position: absolute;
-  font-size: 9px;
-  font-weight: 600;
-  color: #FF5327;
-  letter-spacing: 0.02em;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-.loop-label.show { opacity: 1; }
+    /* State boxes */
+    .state {
+      position: absolute;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
 
-/* Exit guarantee bar */
-.exit-bar {
-  position: absolute;
-  font-size: 9px;
-  font-weight: 500;
-  color: #FF5327;
-  letter-spacing: 0.01em;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  border-top: 1.5px solid #FF5327;
-  padding-top: 6px;
-}
-.exit-bar.show { opacity: 1; }
+    .state.show {
+      opacity: 1;
+    }
 
-/* Positions */
-#s0 { left: 6%; top: 42%; }
-#s1 { left: 28%; top: 42%; }
-#s2 { left: 50%; top: 42%; }
-#s3 { left: 78%; top: 42%; }
+    .state.s-created {
+      background: #FF5327;
+      color: #fff;
+    }
 
-#d0 { left: 6%; top: 60%; }
-#d1 { left: 28%; top: 60%; }
-#d2 { left: 50%; top: 60%; }
-#d3 { left: 78%; top: 60%; }
+    .state.s-active {
+      background: #fff;
+      border: 1.5px solid #FF5327;
+      color: #FF5327;
+    }
 
-#loopLabel { left: 34%; top: 10%; }
-#exitBar { top: 82%; text-align: center; }
+    .state.s-renewal {
+      background: #fff;
+      border: 1.5px dashed #C0C0C0;
+      color: #1A1A1A;
+    }
 
-@media (prefers-color-scheme: dark) {
-  body { background: #101013; }
+    .state.s-expired {
+      background: #fff;
+      border: 1.5px dashed #C0C0C0;
+      color: #999;
+    }
+
+    /* Description labels */
+    .desc {
+      position: absolute;
+      font-size: 10px;
+      color: #777;
+      line-height: 1.4;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .desc.show {
+      opacity: 1;
+    }
+
+    /* Loop label */
+    .loop-label {
+      position: absolute;
+      font-size: 9px;
+      font-weight: 600;
+      color: #FF5327;
+      letter-spacing: 0.02em;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .loop-label.show {
+      opacity: 1;
+    }
+
+    /* Exit guarantee bar */
+    .exit-bar {
+      position: absolute;
+      font-size: 9px;
+      font-weight: 500;
+      color: #FF5327;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      border-top: 1.5px solid #FF5327;
+      padding-top: 6px;
+    }
+
+    .exit-bar.show {
+      opacity: 1;
+    }
+
+    /* Positions */
+    #s0 {
+      left: 6%;
+      top: 42%;
+    }
+
+    #s1 {
+      left: 28%;
+      top: 42%;
+    }
+
+    #s2 {
+      left: 50%;
+      top: 42%;
+    }
+
+    #s3 {
+      left: 78%;
+      top: 42%;
+    }
+
+    #d0 {
+      left: 6%;
+      top: 60%;
+    }
+
+    #d1 {
+      left: 28%;
+      top: 60%;
+    }
+
+    #d2 {
+      left: 50%;
+      top: 60%;
+    }
+
+    #d3 {
+      left: 78%;
+      top: 60%;
+    }
+
+    #loopLabel {
+      left: 34%;
+      top: 10%;
+    }
+
+    #exitBar {
+      top: 82%;
+      text-align: center;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #101013;
+      }
 
 
-  .state.s-active { background: #fff; }
-  .state.s-renewal { background: #fff; }
-  .state.s-expired { background: #fff; }
-}
+      .state.s-active {
+        background: #fff;
+      }
 
-  html.dark body { background: #101013; }
+      .state.s-renewal {
+        background: #fff;
+      }
+
+      .state.s-expired {
+        background: #fff;
+      }
+    }
+
+    html.dark body {
+      background: #101013;
+    }
 
 
-  html.dark .state.s-active { background: #fff; }
-  html.dark .state.s-renewal { background: #fff; }
-  html.dark .state.s-expired { background: #fff; }
+    html.dark .state.s-active {
+      background: #fff;
+    }
+
+    html.dark .state.s-renewal {
+      background: #fff;
+    }
+
+    html.dark .state.s-expired {
+      background: #fff;
+    }
 
 
-@media (max-width: 640px) {
-  .diagram { height: 360px; }
-  .state { font-size: 10px; padding: 7px 12px; }
+    @media (max-width: 640px) {
+      .diagram {
+        height: 360px;
+      }
 
-  #s0 { left: 10%; top: 16%; }
-  #s1 { left: 10%; top: 32%; }
-  #s2 { left: 10%; top: 48%; }
-  #s3 { left: 10%; top: 64%; }
+      .state {
+        font-size: 10px;
+        padding: 7px 12px;
+      }
 
-  #d0 { left: 48%; top: 17%; font-size: 9px; }
-  #d1 { left: 48%; top: 33%; font-size: 9px; }
-  #d2 { left: 48%; top: 49%; font-size: 9px; }
-  #d3 { left: 48%; top: 65%; font-size: 9px; }
+      #s0 {
+        left: 10%;
+        top: 16%;
+      }
 
-  #loopLabel { display: none; }
-  #exitBar { display: none; }
+      #s1 {
+        left: 10%;
+        top: 32%;
+      }
 
-  .svg-lines line { stroke-width: 1; }
-}
-</style>
+      #s2 {
+        left: 10%;
+        top: 48%;
+      }
+
+      #s3 {
+        left: 10%;
+        top: 64%;
+      }
+
+      #d0 {
+        left: 48%;
+        top: 17%;
+        font-size: 9px;
+      }
+
+      #d1 {
+        left: 48%;
+        top: 33%;
+        font-size: 9px;
+      }
+
+      #d2 {
+        left: 48%;
+        top: 49%;
+        font-size: 9px;
+      }
+
+      #d3 {
+        left: 48%;
+        top: 65%;
+        font-size: 9px;
+      }
+
+      #loopLabel {
+        display: none;
+      }
+
+      #exitBar {
+        display: none;
+      }
+
+      .svg-lines line {
+        stroke-width: 1;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="diagram" id="diagram">
-  <svg class="svg-lines" id="svgLines"></svg>
+  <div class="diagram" id="diagram">
+    <svg class="svg-lines" id="svgLines"></svg>
 
-  <div class="state s-created" id="s0">Created</div>
-  <div class="state s-active" id="s1">Active</div>
-  <div class="state s-renewal" id="s2">Renewal Window</div>
-  <div class="state s-expired" id="s3">Expired</div>
+    <div class="state s-created" id="s0">Created</div>
+    <div class="state s-active" id="s1">Active</div>
+    <div class="state s-renewal" id="s2">Renewal Window</div>
+    <div class="state s-expired" id="s3">Expired</div>
 
-  <div class="desc" id="d0">Backed by presigned<br>exit transaction</div>
-  <div class="desc" id="d1">Spendable offchain<br>(preconfirmed or settled)</div>
-  <div class="desc" id="d2">Batch swap renews<br>with fresh expiry</div>
-  <div class="desc" id="d3">Operator sweeps;<br>funds can be reclaimed later in a new batch swap</div>
+    <div class="desc" id="d0">Backed by presigned<br>exit transaction</div>
+    <div class="desc" id="d1">Spendable offchain<br>(preconfirmed or settled)</div>
+    <div class="desc" id="d2">Batch swap renews<br>with fresh expiry</div>
+    <div class="desc" id="d3">Operator sweeps;<br>funds can be reclaimed later in a new batch swap</div>
 
-  <div class="loop-label" id="loopLabel">Batch Swap (renewal)</div>
-  <div class="exit-bar" id="exitBar">Presigned exit transaction available</div>
-</div>
+    <div class="loop-label" id="loopLabel">Batch Swap (renewal)</div>
+    <div class="exit-bar" id="exitBar">Presigned exit transaction available</div>
+  </div>
 
-<script>
-(function() {
-  var diagram = document.getElementById('diagram');
-  var svg = document.getElementById('svgLines');
-  var animDone = false;
-  var resizeTimer;
+  <script>
+      (function () {
+        var diagram = document.getElementById('diagram');
+        var svg = document.getElementById('svgLines');
+        var animDone = false;
+        var resizeTimer;
 
-  function isMobile() { return window.matchMedia('(max-width: 640px)').matches; }
+        function isMobile() { return window.matchMedia('(max-width: 640px)').matches; }
 
-  function getPos(id) {
-    var el = document.getElementById(id);
-    var r = el.getBoundingClientRect();
-    var d = diagram.getBoundingClientRect();
-    return {
-      left: r.left - d.left,
-      right: r.right - d.left,
-      top: r.top - d.top,
-      bottom: r.bottom - d.top,
-      midY: r.top + r.height / 2 - d.top,
-      midX: r.left + r.width / 2 - d.left
-    };
-  }
+        function getPos(id) {
+          var el = document.getElementById(id);
+          var r = el.getBoundingClientRect();
+          var d = diagram.getBoundingClientRect();
+          return {
+            left: r.left - d.left,
+            right: r.right - d.left,
+            top: r.top - d.top,
+            bottom: r.bottom - d.top,
+            midY: r.top + r.height / 2 - d.top,
+            midX: r.left + r.width / 2 - d.left
+          };
+        }
 
-  function addLine(x1, y1, x2, y2, group) {
-    var l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    l.setAttribute('x1', x1); l.setAttribute('y1', y1);
-    l.setAttribute('x2', x2); l.setAttribute('y2', y2);
-    if (group) l.setAttribute('data-group', group);
-    svg.appendChild(l);
-  }
+        function addLine(x1, y1, x2, y2, group) {
+          var l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          l.setAttribute('x1', x1); l.setAttribute('y1', y1);
+          l.setAttribute('x2', x2); l.setAttribute('y2', y2);
+          if (group) l.setAttribute('data-group', group);
+          svg.appendChild(l);
+        }
 
-  function arrowRight(x, y, g) {
-    var a = isMobile() ? 3 : 5, w = isMobile() ? 2 : 3;
-    addLine(x - a, y - w, x, y, g);
-    addLine(x - a, y + w, x, y, g);
-  }
-  function arrowDown(x, y, g) {
-    var a = isMobile() ? 3 : 5, w = isMobile() ? 2 : 3;
-    addLine(x - w, y - a, x, y, g);
-    addLine(x + w, y - a, x, y, g);
-  }
+        function arrowRight(x, y, g) {
+          var a = isMobile() ? 3 : 5, w = isMobile() ? 2 : 3;
+          addLine(x - a, y - w, x, y, g);
+          addLine(x - a, y + w, x, y, g);
+        }
+        function arrowDown(x, y, g) {
+          var a = isMobile() ? 3 : 5, w = isMobile() ? 2 : 3;
+          addLine(x - w, y - a, x, y, g);
+          addLine(x + w, y - a, x, y, g);
+        }
 
-  function showGroup(group, delay) {
-    setTimeout(function() {
-      svg.querySelectorAll('[data-group="' + group + '"]')
-        .forEach(function(l) { l.classList.add('show'); });
-    }, delay);
-  }
+        function showGroup(group, delay) {
+          setTimeout(function () {
+            svg.querySelectorAll('[data-group="' + group + '"]')
+              .forEach(function (l) { l.classList.add('show'); });
+          }, delay);
+        }
 
-  function showEl(id, delay) {
-    setTimeout(function() { document.getElementById(id).classList.add('show'); }, delay);
-  }
+        function showEl(id, delay) {
+          setTimeout(function () { document.getElementById(id).classList.add('show'); }, delay);
+        }
 
-  function redraw() {
-    svg.innerHTML = '';
-    var s0 = getPos('s0'), s1 = getPos('s1'), s2 = getPos('s2'), s3 = getPos('s3');
+        function redraw() {
+          svg.innerHTML = '';
+          var s0 = getPos('s0'), s1 = getPos('s1'), s2 = getPos('s2'), s3 = getPos('s3');
 
-    if (isMobile()) {
-      // Use a consistent x so forward arrows are perfectly vertical
-      var colX = s0.left + Math.min(s0.right - s0.left, s1.right - s1.left, s2.right - s2.left, s3.right - s3.left) / 2;
-      addLine(colX, s0.bottom, colX, s1.top, 'fwd');
-      arrowDown(colX, s1.top, 'fwd');
-      addLine(colX, s1.bottom, colX, s2.top, 'fwd');
-      arrowDown(colX, s2.top, 'fwd');
-      addLine(colX, s2.bottom, colX, s3.top, 'fwd');
-      arrowDown(colX, s3.top, 'fwd');
+          if (isMobile()) {
+            // Use a consistent x so forward arrows are perfectly vertical
+            var colX = s0.left + Math.min(s0.right - s0.left, s1.right - s1.left, s2.right - s2.left, s3.right - s3.left) / 2;
+            addLine(colX, s0.bottom, colX, s1.top, 'fwd');
+            arrowDown(colX, s1.top, 'fwd');
+            addLine(colX, s1.bottom, colX, s2.top, 'fwd');
+            arrowDown(colX, s2.top, 'fwd');
+            addLine(colX, s2.bottom, colX, s3.top, 'fwd');
+            arrowDown(colX, s3.top, 'fwd');
 
-      // Renewal loop: right side — short horizontal stubs + straight vertical
-      var loopX = Math.max(s0.right, s1.right, s2.right, s3.right) + 14;
-      addLine(s2.right, s2.midY, loopX, s2.midY, 'loop');
-      addLine(loopX, s2.midY, loopX, s0.midY, 'loop');
-      addLine(loopX, s0.midY, s0.right, s0.midY, 'loop');
-      arrowRight(s0.right, s0.midY, 'loop');
+            // Renewal loop: right side — short horizontal stubs + straight vertical
+            var loopX = Math.max(s0.right, s1.right, s2.right, s3.right) + 14;
+            addLine(s2.right, s2.midY, loopX, s2.midY, 'loop');
+            addLine(loopX, s2.midY, loopX, s0.midY, 'loop');
+            addLine(loopX, s0.midY, s0.right, s0.midY, 'loop');
+            arrowRight(s0.right, s0.midY, 'loop');
 
-    } else {
-      // Forward arrows: horizontal
-      addLine(s0.right, s0.midY, s1.left, s1.midY, 'fwd');
-      arrowRight(s1.left, s1.midY, 'fwd');
-      addLine(s1.right, s1.midY, s2.left, s2.midY, 'fwd');
-      arrowRight(s2.left, s2.midY, 'fwd');
-      addLine(s2.right, s2.midY, s3.left, s3.midY, 'fwd');
-      arrowRight(s3.left, s3.midY, 'fwd');
+          } else {
+            // Forward arrows: horizontal
+            addLine(s0.right, s0.midY, s1.left, s1.midY, 'fwd');
+            arrowRight(s1.left, s1.midY, 'fwd');
+            addLine(s1.right, s1.midY, s2.left, s2.midY, 'fwd');
+            arrowRight(s2.left, s2.midY, 'fwd');
+            addLine(s2.right, s2.midY, s3.left, s3.midY, 'fwd');
+            arrowRight(s3.left, s3.midY, 'fwd');
 
-      // Renewal loop: s2 top → up → left → down → s0 top
-      var loopY = s0.top - 30;
-      addLine(s2.midX, s2.top, s2.midX, loopY, 'loop');
-      addLine(s2.midX, loopY, s0.midX, loopY, 'loop');
-      addLine(s0.midX, loopY, s0.midX, s0.top, 'loop');
-      arrowDown(s0.midX, s0.top, 'loop');
+            // Renewal loop: s2 top → up → left → down → s0 top
+            var loopY = s0.top - 30;
+            addLine(s2.midX, s2.top, s2.midX, loopY, 'loop');
+            addLine(s2.midX, loopY, s0.midX, loopY, 'loop');
+            addLine(s0.midX, loopY, s0.midX, s0.top, 'loop');
+            arrowDown(s0.midX, s0.top, 'loop');
 
-      // Size exit bar to span from s0.left to s2.right
-      var eb = document.getElementById('exitBar');
-      eb.style.left = s0.left + 'px';
-      eb.style.width = (s2.right - s0.left) + 'px';
-    }
+            // Size exit bar to span from s0.left to s2.right
+            var eb = document.getElementById('exitBar');
+            eb.style.left = s0.left + 'px';
+            eb.style.width = (s2.right - s0.left) + 'px';
+          }
 
-    // After initial animation, instantly show all lines on redraw
-    if (animDone) {
-      svg.querySelectorAll('line').forEach(function(l) { l.classList.add('show'); });
-    }
-  }
+          // After initial animation, instantly show all lines on redraw
+          if (animDone) {
+            svg.querySelectorAll('line').forEach(function (l) { l.classList.add('show'); });
+          }
+        }
 
-  window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(redraw, 50);
-  });
+        window.addEventListener('resize', function () {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(redraw, 50);
+        });
 
-  function run() {
-    showEl('s0', 200);
-    showEl('d0', 300);
+        function run() {
+          showEl('s0', 200);
+          showEl('d0', 300);
 
-    setTimeout(redraw, 400);
+          setTimeout(redraw, 400);
 
-    showGroup('fwd', 500);
-    showEl('s1', 700);
-    showEl('d1', 800);
-    showEl('s2', 1100);
-    showEl('d2', 1200);
-    showEl('s3', 1500);
-    showEl('d3', 1600);
+          showGroup('fwd', 500);
+          showEl('s1', 700);
+          showEl('d1', 800);
+          showEl('s2', 1100);
+          showEl('d2', 1200);
+          showEl('s3', 1500);
+          showEl('d3', 1600);
 
-    showGroup('loop', 1900);
-    showEl('loopLabel', 2000);
-    showEl('exitBar', 2300);
+          showGroup('loop', 1900);
+          showEl('loopLabel', 2000);
+          showEl('exitBar', 2300);
 
-    setTimeout(function() { animDone = true; }, 2400);
-  }
+          setTimeout(function () { animDone = true; }, 2400);
+        }
 
-  var fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
-  fontsReady.then(function() {
-    if (typeof IntersectionObserver !== 'undefined') {
-      var obs = new IntersectionObserver(function(entries) {
-        if (entries[0].isIntersecting) { obs.disconnect(); run(); }
-      }, { threshold: 0.3 });
-      obs.observe(diagram);
-    } else { run(); }
-  });
-})();
-</script>
+        var fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+        fontsReady.then(function () {
+          if (typeof IntersectionObserver !== 'undefined') {
+            var obs = new IntersectionObserver(function (entries) {
+              if (entries[0].isIntersecting) { obs.disconnect(); run(); }
+            }, { threshold: 0.3 });
+            obs.observe(diagram);
+          } else { run(); }
+        });
+      })();
+  </script>
 </body>
+
 </html>
