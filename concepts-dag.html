@@ -3,29 +3,10 @@
 
 <head>
   <script>if (new URLSearchParams(location.search).get("theme") === "dark") document.documentElement.classList.add("dark")</script>
+  <link rel="stylesheet" href="theme.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    @font-face {
-      font-family: 'Geist';
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url(https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFWNOITd.woff2) format('woff2');
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: transparent;
-      font-family: 'Geist', -apple-system, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
     .diagram {
       position: relative;
       height: 340px;
@@ -42,10 +23,10 @@
     }
 
     .svg-lines line {
-      stroke: #FF5327;
+      stroke: var(--color-accent);
       stroke-width: 1.5;
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .svg-lines line.show {
@@ -54,7 +35,7 @@
 
     .source-box {
       position: absolute;
-      background: #FF5327;
+      background: var(--color-accent);
       color: #fff;
       padding: 10px 16px;
       border-radius: 4px;
@@ -63,7 +44,7 @@
       letter-spacing: -0.01em;
       white-space: nowrap;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .source-box.show {
@@ -72,17 +53,17 @@
 
     .batch-box {
       position: absolute;
-      background: #fff;
-      border: 1.5px dashed #C0C0C0;
+      background: var(--color-surface);
+      border: 1.5px dashed var(--color-border-dashed);
       padding: 10px 16px;
       border-radius: 20px;
       font-size: 11px;
       font-weight: 600;
-      color: #1A1A1A;
+      color: var(--color-text);
       letter-spacing: -0.01em;
       white-space: nowrap;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .batch-box.show {
@@ -94,16 +75,16 @@
       width: 56px;
       height: 56px;
       border-radius: 50%;
-      border: 1.5px dashed #C0C0C0;
+      border: 1.5px dashed var(--color-border-dashed);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 10px;
       font-weight: 600;
-      color: #575757;
+      color: var(--color-text-muted);
       opacity: 0;
-      transition: opacity 0.4s ease;
-      background: #fff;
+      transition: opacity var(--duration-fade) var(--ease-standard);
+      background: var(--color-surface);
     }
 
     .vtxo.show {
@@ -112,16 +93,16 @@
 
     .tx-box {
       position: absolute;
-      background: #fff;
-      border: 1.5px dashed #C0C0C0;
+      background: var(--color-surface);
+      border: 1.5px dashed var(--color-border-dashed);
       padding: 8px 14px;
       border-radius: 4px;
       font-size: 10px;
       font-weight: 600;
-      color: #1A1A1A;
+      color: var(--color-text);
       white-space: nowrap;
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .tx-box::before {
@@ -131,7 +112,7 @@
       left: -4px;
       right: -4px;
       bottom: -4px;
-      border: 1.5px dashed #C0C0C0;
+      border: 1.5px dashed var(--color-border-dashed);
       border-radius: 6px;
     }
 
@@ -199,42 +180,17 @@
       top: 54%;
     }
 
-    @media (prefers-color-scheme: dark) {
-      body {
-        background: #101013;
-      }
-
-
-      .batch-box {
-        background: #fff;
-      }
-
-      .vtxo {
-        background: #fff;
-      }
-
-      .tx-box {
-        background: #fff;
-      }
-    }
-
-    html.dark body {
-      background: #101013;
-    }
-
-
     html.dark .batch-box {
-      background: #fff;
+      background: var(--color-surface);
     }
 
     html.dark .vtxo {
-      background: #fff;
+      background: var(--color-surface);
     }
 
     html.dark .tx-box {
-      background: #fff;
+      background: var(--color-surface);
     }
-
 
     @media (max-width: 640px) {
       .diagram {
@@ -349,8 +305,8 @@
     <div class="vtxo" id="vtxo6">VTXO 6</div>
     <div class="vtxo" id="vtxo7">VTXO 7</div>
 
-    <div class="tx-box" id="arkTx1">Ark Transaction</div>
-    <div class="tx-box" id="arkTx2">Ark Transaction</div>
+    <div class="tx-box" id="arkTx1">Arkade Transaction</div>
+    <div class="tx-box" id="arkTx2">Arkade Transaction</div>
   </div>
 
   <script>

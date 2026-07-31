@@ -2,17 +2,13 @@
 <html lang="en">
 
 <head>
+  <script>if (new URLSearchParams(location.search).get("theme") === "dark") document.documentElement.classList.add("dark")</script>
+  <link rel="stylesheet" href="theme.css">
   <meta charset="UTF-8">
   <title>Arkade Logo Morph</title>
   <style>
     :root {
       --logo-color: #391998;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
     }
 
     body {

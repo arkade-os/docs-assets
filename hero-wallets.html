@@ -3,37 +3,10 @@
 
 <head>
   <script>if (new URLSearchParams(location.search).get("theme") === "dark") document.documentElement.classList.add("dark")</script>
+  <link rel="stylesheet" href="theme.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    @font-face {
-      font-family: 'Geist';
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url(https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFWNOITd.woff2) format('woff2');
-    }
-
-    @font-face {
-      font-family: 'Geist Mono';
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url(https://fonts.gstatic.com/s/geistmono/v3/or3yQ6H81JOCPFhYqdDhrClU5lLDA2a8iBMX.woff2) format('woff2');
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: transparent;
-      font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
     .scene {
       position: relative;
       height: 380px;
@@ -50,7 +23,7 @@
       top: 50%;
       transform: translateY(-50%) translateY(8px);
       width: 210px;
-      background: #fff;
+      background: var(--color-surface);
       border-radius: 12px;
       border: 1px solid #EBEBEB;
       padding: 14px 16px 12px;
@@ -81,7 +54,7 @@
     .wc-name {
       font-size: 11px;
       font-weight: 600;
-      color: #1A1A1A;
+      color: var(--color-text);
     }
 
     .wc-balance-label {
@@ -94,7 +67,7 @@
     .wc-balance {
       font-size: 18px;
       font-weight: 600;
-      color: #1A1A1A;
+      color: var(--color-text);
       letter-spacing: -0.02em;
       line-height: 1.15;
       margin-bottom: 14px;
@@ -123,7 +96,7 @@
       flex: 1;
       padding: 6px 0;
       border-radius: 6px;
-      font-family: 'Geist', sans-serif;
+      font-family: var(--font-sans);
       font-size: 10px;
       font-weight: 500;
       text-align: center;
@@ -134,13 +107,13 @@
     }
 
     .wc-btn-send {
-      background: #1A1A1A;
+      background: var(--color-text);
       color: #fff;
     }
 
     .wc-btn-receive {
       background: #F2F2F2;
-      color: #1A1A1A;
+      color: var(--color-text);
       border: 1px solid #EBEBEB;
     }
 
@@ -160,7 +133,7 @@
       width: 4px;
       border-radius: 1px;
       background: #EBEBEB;
-      transition: height 0.4s ease, background 0.4s ease;
+      transition: height var(--duration-fade) var(--ease-standard), background var(--duration-fade) var(--ease-standard);
     }
 
     .wc-bar.accent {
@@ -173,7 +146,7 @@
       right: 30%;
       top: 6%;
       width: 230px;
-      background: #fff;
+      background: var(--color-surface);
       border-radius: 12px;
       border: 1px solid #EBEBEB;
       padding: 16px 18px;
@@ -216,11 +189,11 @@
     .pc-name {
       font-size: 13px;
       font-weight: 600;
-      color: #1A1A1A;
+      color: var(--color-text);
     }
 
     .pc-addr {
-      font-family: 'Geist Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 10px;
       color: #999;
     }
@@ -228,7 +201,7 @@
     .pc-amount {
       font-size: 14px;
       font-weight: 600;
-      color: #1A1A1A;
+      color: var(--color-text);
       text-align: right;
       font-variant-numeric: tabular-nums;
     }
@@ -266,7 +239,7 @@
       right: 25%;
       bottom: 4%;
       width: 220px;
-      background: #fff;
+      background: var(--color-surface);
       border-radius: 12px;
       border: 1px solid #EBEBEB;
       padding: 14px 16px;
@@ -321,19 +294,19 @@
     .pf-name {
       font-size: 12px;
       font-weight: 600;
-      color: #1A1A1A;
+      color: var(--color-text);
     }
 
     .pf-sub {
-      font-family: 'Geist Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 9px;
-      color: #C0C0C0;
+      color: var(--color-border-dashed);
     }
 
     .pf-value {
       font-size: 12px;
       font-weight: 600;
-      color: #1A1A1A;
+      color: var(--color-text);
       text-align: right;
       font-variant-numeric: tabular-nums;
     }
@@ -374,7 +347,7 @@
         right: auto;
         bottom: auto;
         opacity: 0;
-        transition: opacity 0.5s ease;
+        transition: opacity var(--duration-fade) var(--ease-standard);
       }
 
       .wallet-card.mobile-active,
@@ -413,7 +386,7 @@
         height: 6px;
         border-radius: 50%;
         background: #EBEBEB;
-        transition: background 0.3s ease;
+        transition: background var(--duration-panel) var(--ease-standard);
       }
 
       .carousel-dot.active {
@@ -423,18 +396,6 @@
 
     .carousel-dots {
       display: none;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      body {
-        background: #101013;
-      }
-
-
-    }
-
-    html.dark body {
-      background: #101013;
     }
   </style>
 </head>
@@ -474,7 +435,7 @@
       </div>
       <div class="pc-divider"></div>
       <div class="pc-row">
-        <div class="pc-avatar" style="background:#FAFAFA;color:#575757;font-size:12px;">B</div>
+        <div class="pc-avatar" style="background:#FAFAFA;color:var(--color-text-muted);font-size:12px;">B</div>
         <div class="pc-info">
           <div class="pc-name">Bob</div>
           <div class="pc-addr">ark1qz7p...v9k3</div>

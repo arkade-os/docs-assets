@@ -3,29 +3,10 @@
 
 <head>
   <script>if (new URLSearchParams(location.search).get("theme") === "dark") document.documentElement.classList.add("dark")</script>
+  <link rel="stylesheet" href="theme.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    @font-face {
-      font-family: 'Geist';
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url(https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFWNOITd.woff2) format('woff2');
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: transparent;
-      font-family: 'Geist', -apple-system, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
     .diagram {
       position: relative;
       height: 240px;
@@ -42,10 +23,10 @@
     }
 
     .svg-lines line {
-      stroke: #FF5327;
+      stroke: var(--color-accent);
       stroke-width: 1.5;
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .svg-lines line.show {
@@ -62,7 +43,7 @@
       letter-spacing: -0.01em;
       white-space: nowrap;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .state.show {
@@ -70,25 +51,25 @@
     }
 
     .state.s-created {
-      background: #FF5327;
+      background: var(--color-accent);
       color: #fff;
     }
 
     .state.s-active {
-      background: #fff;
-      border: 1.5px solid #FF5327;
-      color: #FF5327;
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-accent);
+      color: var(--color-accent);
     }
 
     .state.s-renewal {
-      background: #fff;
-      border: 1.5px dashed #C0C0C0;
-      color: #1A1A1A;
+      background: var(--color-surface);
+      border: 1.5px dashed var(--color-border-dashed);
+      color: var(--color-text);
     }
 
     .state.s-expired {
-      background: #fff;
-      border: 1.5px dashed #C0C0C0;
+      background: var(--color-surface);
+      border: 1.5px dashed var(--color-border-dashed);
       color: #999;
     }
 
@@ -99,7 +80,7 @@
       color: #777;
       line-height: 1.4;
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .desc.show {
@@ -111,10 +92,10 @@
       position: absolute;
       font-size: 9px;
       font-weight: 600;
-      color: #FF5327;
+      color: var(--color-accent);
       letter-spacing: 0.02em;
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .loop-label.show {
@@ -126,11 +107,11 @@
       position: absolute;
       font-size: 9px;
       font-weight: 500;
-      color: #FF5327;
+      color: var(--color-accent);
       letter-spacing: 0.01em;
       opacity: 0;
-      transition: opacity 0.5s ease;
-      border-top: 1.5px solid #FF5327;
+      transition: opacity var(--duration-fade) var(--ease-standard);
+      border-top: 1.5px solid var(--color-accent);
       padding-top: 6px;
     }
 
@@ -189,40 +170,20 @@
       text-align: center;
     }
 
-    @media (prefers-color-scheme: dark) {
-      body {
-        background: #101013;
-      }
-
-
-      .state.s-active {
-        background: #fff;
-      }
-
-      .state.s-renewal {
-        background: #fff;
-      }
-
-      .state.s-expired {
-        background: #fff;
-      }
-    }
-
     html.dark body {
-      background: #101013;
+      background: var(--color-bg);
     }
-
 
     html.dark .state.s-active {
-      background: #fff;
+      background: var(--color-surface);
     }
 
     html.dark .state.s-renewal {
-      background: #fff;
+      background: var(--color-surface);
     }
 
     html.dark .state.s-expired {
-      background: #fff;
+      background: var(--color-surface);
     }
 
 

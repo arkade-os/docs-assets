@@ -3,37 +3,10 @@
 
 <head>
   <script>if (new URLSearchParams(location.search).get("theme") === "dark") document.documentElement.classList.add("dark")</script>
+  <link rel="stylesheet" href="theme.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    @font-face {
-      font-family: 'Geist';
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url(https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFWNOITd.woff2) format('woff2');
-    }
-
-    @font-face {
-      font-family: 'Geist Mono';
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url(https://fonts.gstatic.com/s/geistmono/v3/or3yQ6H81JOCPFhYqdDhrClU5lLDA2a8iBMX.woff2) format('woff2');
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: transparent;
-      font-family: 'Geist', -apple-system, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
     .scene {
       display: flex;
       align-items: center;
@@ -55,7 +28,7 @@
       gap: 6px;
       opacity: 0;
       transform: translateY(6px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard), transform 0.5s ease;
     }
 
     .box.show {
@@ -64,7 +37,7 @@
     }
 
     .box.client {
-      background: #fff;
+      background: var(--color-surface);
       border: 1px solid #EBEBEB;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     }
@@ -87,7 +60,7 @@
     }
 
     .client .box-title {
-      color: #1A1A1A;
+      color: var(--color-text);
     }
 
     .client .box-sub {
@@ -110,7 +83,7 @@
       width: 120px;
       gap: 8px;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .connector.show {
@@ -136,22 +109,22 @@
     }
 
     .conn-label {
-      font-family: 'Geist Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 9px;
-      color: #C0C0C0;
+      color: var(--color-border-dashed);
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
 
     /* Labels under boxes */
     .label {
-      font-family: 'Geist Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 9px;
       color: #999;
       letter-spacing: 0.02em;
       margin-top: 8px;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .label.show {
@@ -192,46 +165,6 @@
       animation-play-state: paused;
     }
 
-    @media (prefers-color-scheme: dark) {
-      body {
-        background: #101013;
-      }
-
-
-      .box.client {
-        background: #fff;
-      }
-
-      .box.server {
-        background: #381993;
-      }
-
-      .conn-line {
-        background: #333;
-      }
-
-      .conn-label {
-        color: #999;
-      }
-
-      .label {
-        color: #999;
-      }
-    }
-
-    html.dark body {
-      background: #101013;
-    }
-
-
-    html.dark .box.client {
-      background: #fff;
-    }
-
-    html.dark .box.server {
-      background: #381993;
-    }
-
     html.dark .conn-line {
       background: #333;
     }
@@ -239,11 +172,6 @@
     html.dark .conn-label {
       color: #999;
     }
-
-    html.dark .label {
-      color: #999;
-    }
-
 
     @media (max-width: 640px) {
       .scene {
@@ -271,7 +199,7 @@
       }
 
       .conn-label {
-        color: #C0C0C0;
+        color: var(--color-border-dashed);
         font-size: 8px;
       }
 

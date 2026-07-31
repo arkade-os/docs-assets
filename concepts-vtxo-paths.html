@@ -2,39 +2,13 @@
 <html>
 
 <head>
+  <script>if (new URLSearchParams(location.search).get("theme") === "dark") document.documentElement.classList.add("dark")</script>
+  <link rel="stylesheet" href="theme.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    @font-face {
-      font-family: 'Geist';
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url(https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFWNOITd.woff2) format('woff2');
-    }
-
-    @font-face {
-      font-family: 'Geist Mono';
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url(https://fonts.gstatic.com/s/geistmono/v3/or3yQ6H81JOCPFhYqdDhrClU5lLDA2a8iBMX.woff2) format('woff2');
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: transparent;
-      font-family: 'Geist', -apple-system, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
     .card {
-      background: #fff;
+      background: var(--color-surface);
       border-radius: 12px;
       border: 1px solid #E8E8E8;
       overflow: hidden;
@@ -57,7 +31,7 @@
     }
 
     .card-title {
-      font-family: 'Geist Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 12px;
       color: #999;
       flex: 1;
@@ -94,7 +68,7 @@
       fill: none;
       stroke-width: 1.5;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .diagram-svg path.show {
@@ -103,7 +77,7 @@
 
     .diagram-svg polygon {
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .diagram-svg polygon.show {
@@ -122,7 +96,7 @@
       border-radius: 6px;
       text-align: center;
       opacity: 0;
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard), transform 0.5s ease;
     }
 
     .vtxo-source.show {
@@ -147,7 +121,7 @@
       border-radius: 8px;
       opacity: 0;
       transform: translateX(8px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard), transform 0.5s ease;
     }
 
     .path-box.show {
@@ -162,7 +136,7 @@
     }
 
     .path-box .path-detail {
-      font-family: 'Geist Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 9px;
       margin-bottom: 6px;
     }
@@ -188,7 +162,7 @@
     }
 
     .path-collab .path-detail {
-      color: #575757;
+      color: var(--color-text-muted);
     }
 
     .path-collab .path-tag {
@@ -201,11 +175,11 @@
       right: 12%;
       bottom: 12%;
       background: #F8F8F8;
-      border: 1.5px dashed #C0C0C0;
+      border: 1.5px dashed var(--color-border-dashed);
     }
 
     .path-exit .path-title {
-      color: #575757;
+      color: var(--color-text-muted);
     }
 
     .path-exit .path-detail {
@@ -214,7 +188,7 @@
 
     .path-exit .path-tag {
       background: #F2F2F2;
-      color: #575757;
+      color: var(--color-text-muted);
     }
 
     /* Default label */
@@ -228,7 +202,7 @@
       text-transform: uppercase;
       letter-spacing: 0.06em;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .default-label.show {
@@ -316,9 +290,9 @@
         <path id="lineCollab" d="M 160,100 C 280,100 300,50 420,50" stroke="#381993" stroke-width="1.5" />
         <polygon id="arrowCollab" points="415,46 422,50 415,54" fill="#381993" />
         <!-- Exit path line -->
-        <path id="lineExit" d="M 160,100 C 280,100 300,155 420,155" stroke="#C0C0C0" stroke-width="1.5"
+        <path id="lineExit" d="M 160,100 C 280,100 300,155 420,155" stroke="var(--color-border-dashed)" stroke-width="1.5"
           stroke-dasharray="4,3" />
-        <polygon id="arrowExit" points="415,151 422,155 415,159" fill="#C0C0C0" />
+        <polygon id="arrowExit" points="415,151 422,155 415,159" fill="var(--color-border-dashed)" />
       </svg>
 
       <div class="vtxo-source" id="vtxoBox">

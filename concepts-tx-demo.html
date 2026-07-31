@@ -2,20 +2,11 @@
 <html>
 
 <head>
+  <script>if (new URLSearchParams(location.search).get("theme") === "dark") document.documentElement.classList.add("dark")</script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="theme.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: transparent;
-      font-family: 'Geist', 'SF Pro', -apple-system, 'Helvetica Neue', sans-serif;
-    }
-
     .panel {
       background: #fff;
       border-radius: 12px;
@@ -33,7 +24,7 @@
     }
 
     .header-text {
-      font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+      font-family: var(--font-mono);
       color: #6B6B80;
       font-size: 12px;
       letter-spacing: 0.3px;
@@ -66,7 +57,7 @@
 
     .code-body {
       padding: 14px 20px;
-      font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+      font-family: var(--font-mono);
       font-size: 13px;
       line-height: 21px;
     }
@@ -93,19 +84,6 @@
     .cursor {
       color: #391998;
       font-weight: 700;
-      animation: blink 0.8s step-end infinite;
-    }
-
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0;
-      }
     }
 
     .line-group {
@@ -173,13 +151,13 @@
       color: #16A34A;
       font-size: 11px;
       font-weight: 600;
-      font-family: 'Geist', 'SF Pro', -apple-system, sans-serif;
+      font-family: var(--font-sans);
     }
 
     .result-detail {
       color: #9E9EB0;
       font-size: 10px;
-      font-family: 'Geist', 'SF Pro', -apple-system, sans-serif;
+      font-family: var(--font-sans);
     }
 
     .result-check {
@@ -263,7 +241,7 @@
   </div>
 
   <script>
-    var K = "#E8664A", S = "#2E7D32", C = "#9E9EB0", N = "#7B1FA2", I = "#1A1A2E", P = "#6B6B80", PL = "#4A22B0";
+    var K = "var(--syntax-keyword)", S = "var(--syntax-string)", C = "var(--syntax-comment)", N = "var(--syntax-number)", I = "var(--syntax-text)", P = "var(--syntax-punctuation)", PL = "var(--syntax-text)";
 
     var introLines = [
       [{ t: "// Alice sends 1,000 sats to Bob", c: C }],

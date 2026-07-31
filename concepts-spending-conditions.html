@@ -3,29 +3,10 @@
 
 <head>
   <script>if (new URLSearchParams(location.search).get("theme") === "dark") document.documentElement.classList.add("dark")</script>
+  <link rel="stylesheet" href="theme.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    @font-face {
-      font-family: 'Geist';
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url(https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFWNOITd.woff2) format('woff2');
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: transparent;
-      font-family: 'Geist', -apple-system, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
     .diagram {
       position: relative;
       height: 340px;
@@ -43,10 +24,10 @@
     }
 
     .svg-lines line {
-      stroke: #FF5327;
+      stroke: var(--color-accent);
       stroke-width: 1.5;
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .svg-lines line.show {
@@ -59,7 +40,7 @@
       left: 4%;
       top: 50%;
       transform: translateY(-50%);
-      background: #FF5327;
+      background: var(--color-accent);
       color: #fff;
       padding: 8px 12px;
       border-radius: 4px;
@@ -68,7 +49,7 @@
       letter-spacing: -0.01em;
       white-space: nowrap;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
       z-index: 2;
     }
 
@@ -82,17 +63,17 @@
       left: 24%;
       top: 50%;
       transform: translateY(-50%);
-      background: #fff;
-      border: 1.5px solid #C0C0C0;
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-border-dashed);
       padding: 8px 12px;
       border-radius: 4px;
       font-size: 9px;
       font-weight: 600;
-      color: #1A1A1A;
+      color: var(--color-text);
       text-align: center;
       line-height: 1.5;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .root-box::before {
@@ -102,7 +83,7 @@
       left: -5px;
       right: -5px;
       bottom: -5px;
-      border: 1.5px dashed #C0C0C0;
+      border: 1.5px dashed var(--color-border-dashed);
       border-radius: 6px;
     }
 
@@ -113,16 +94,16 @@
     /* Intermediate nodes (dashed border) */
     .mid-box {
       position: absolute;
-      background: #fff;
-      border: 1.5px dashed #C0C0C0;
+      background: var(--color-surface);
+      border: 1.5px dashed var(--color-border-dashed);
       padding: 6px 10px;
       border-radius: 4px;
       font-size: 9px;
       font-weight: 600;
-      color: #1A1A1A;
+      color: var(--color-text);
       white-space: nowrap;
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .mid-box.show {
@@ -144,16 +125,16 @@
     /* Leaf nodes (dashed border) */
     .leaf-box {
       position: absolute;
-      background: #fff;
-      border: 1.5px dashed #C0C0C0;
+      background: var(--color-surface);
+      border: 1.5px dashed var(--color-border-dashed);
       padding: 6px 10px;
       border-radius: 4px;
       font-size: 9px;
       font-weight: 600;
-      color: #1A1A1A;
+      color: var(--color-text);
       white-space: nowrap;
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity var(--duration-fade) var(--ease-standard);
     }
 
     .leaf-box.show {
@@ -180,48 +161,24 @@
       top: 86%;
     }
 
-    @media (prefers-color-scheme: dark) {
-      body {
-        background: #101013;
-      }
-
-
-      .root-box {
-        background: #fff;
-      }
-
-      .root-box::before {
-        border-color: #C0C0C0;
-      }
-
-      .mid-box {
-        background: #fff;
-      }
-
-      .leaf-box {
-        background: #fff;
-      }
-    }
-
     html.dark body {
-      background: #101013;
+      background: var(--color-bg);
     }
-
 
     html.dark .root-box {
-      background: #fff;
+      background: var(--color-surface);
     }
 
     html.dark .root-box::before {
-      border-color: #C0C0C0;
+      border-color: var(--color-border-dashed);
     }
 
     html.dark .mid-box {
-      background: #fff;
+      background: var(--color-surface);
     }
 
     html.dark .leaf-box {
-      background: #fff;
+      background: var(--color-surface);
     }
 
 
@@ -310,7 +267,7 @@
 
     <div class="root-box" id="rootBox">
       A+B+C+D+S<br>
-      <span style="font-weight:400;color:#575757">OR</span><br>
+      <span style="font-weight:400;color:var(--color-text-muted)">OR</span><br>
       S after expiry
     </div>
 
